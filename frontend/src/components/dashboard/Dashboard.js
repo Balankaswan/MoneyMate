@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { dashboardAPI } from '../../utils/api';
 import { formatCurrency, formatDate, getDaysUntil, getCategoryColor } from '../../utils/helpers';
-import { StatCard, CardSkeleton, EmptyState, Badge, PageHeader } from '../shared/UI';
+import { StatCard, CardSkeleton, EmptyState, PageHeader } from '../shared/UI';
 import { Wallet, TrendingUp, TrendingDown, CreditCard, AlertCircle, Plus } from 'lucide-react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import { Pie, Bar } from 'react-chartjs-2';
@@ -70,7 +70,7 @@ const Dashboard = () => {
     ...chartOptions,
     scales: {
       x: { grid: { display: false }, ticks: { font: { family: 'Plus Jakarta Sans', size: 11 } } },
-      y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Plus Jakarta Sans', size: 11 }, callback: v => '₹' + (v/1000).toFixed(0) + 'k' } }
+      y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Plus Jakarta Sans', size: 11 }, callback: v => '₹' + (v / 1000).toFixed(0) + 'k' } }
     }
   };
 

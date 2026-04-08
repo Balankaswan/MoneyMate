@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { authAPI } from '../../utils/api';
 import { PageHeader } from '../shared/UI';
-import { User, Moon, Sun, Bell, Shield, Palette } from 'lucide-react';
+import { User, Moon, Sun, Shield, Palette } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const SettingsPage = () => {
@@ -37,7 +37,7 @@ const SettingsPage = () => {
           </div>
           <div>
             <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Email</label>
-            <input className="input-field max-w-sm" value={user?.email || ''} disabled className="input-field max-w-sm opacity-60 cursor-not-allowed" />
+            <input className="input-field max-w-sm opacity-60 cursor-not-allowed" value={user?.email || ''} disabled />
           </div>
           <div>
             <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Currency</label>

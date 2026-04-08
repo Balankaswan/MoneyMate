@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import {
   LayoutDashboard, ArrowLeftRight, CreditCard, BarChart3,
-  Lightbulb, Settings, LogOut, Moon, Sun, X, Menu, TrendingUp, PiggyBank
+  Lightbulb, Settings, LogOut, Moon, Sun, X, Menu
 } from 'lucide-react';
 
 const navItems = [

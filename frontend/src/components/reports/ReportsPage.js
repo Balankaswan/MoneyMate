@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { reportsAPI } from '../../utils/api';
 import { formatCurrency, getCategoryColor } from '../../utils/helpers';
 import { PageHeader, EmptyState } from '../shared/UI';
@@ -19,9 +19,7 @@ const ReportsPage = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
-  useEffect(() => { loadReport(); }, [tab, selectedMonth, selectedYear]);
-
-  const loadReport = async () => {
+  const loadReport = useCallback(async () => {
     setLoading(true);
     try {
       if (tab === 'monthly') {
@@ -33,7 +31,9 @@ const ReportsPage = () => {
       }
     } catch { toast.error('Failed to load report'); }
     finally { setLoading(false); }
-  };
+  }, [tab, selectedMonth, selectedYear]);
+
+  useEffect(() => { loadReport(); }, [loadReport]);
 
   const exportExcel = () => {
     try {
