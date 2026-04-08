@@ -94,7 +94,6 @@ const EMICard = ({ emi, onEdit, onDelete, onPaymentToggle }) => {
       {expanded && (
         <div className="max-h-72 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800">
           {emi.payments?.map((payment, idx) => {
-            const daysLeft = getDaysUntil(payment.dueDate);
             return (
               <div key={idx} className={`flex items-center gap-3 px-5 py-3 ${payment.status === 'paid' ? 'opacity-60' : ''}`}>
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${payment.status === 'paid' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' : payment.status === 'overdue' ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}>

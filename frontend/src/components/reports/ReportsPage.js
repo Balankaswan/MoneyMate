@@ -4,12 +4,12 @@ import { formatCurrency, getCategoryColor } from '../../utils/helpers';
 import { PageHeader, EmptyState } from '../shared/UI';
 import { Download, FileSpreadsheet } from 'lucide-react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Bar, Line, Pie } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
 import toast from 'react-hot-toast';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Tooltip, Legend);
 
-const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 const ReportsPage = () => {
   const [tab, setTab] = useState('monthly');
@@ -118,7 +118,7 @@ const ReportsPage = () => {
     plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } } },
     scales: {
       x: { grid: { display: false }, ticks: { font: { size: 11 } } },
-      y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { size: 11 }, callback: v => '₹' + (v/1000).toFixed(0) + 'k' } }
+      y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { size: 11 }, callback: v => '₹' + (v / 1000).toFixed(0) + 'k' } }
     }
   };
   const pieOpts = { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } } } };
@@ -209,9 +209,9 @@ const ReportsPage = () => {
               </div>
               <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {Object.entries(currentData.categoryBreakdown)
-                  .sort(([,a],[,b]) => b - a)
+                  .sort(([, a], [, b]) => b - a)
                   .map(([cat, amount]) => {
-                    const total = Object.values(currentData.categoryBreakdown).reduce((s,v) => s+v, 0);
+                    const total = Object.values(currentData.categoryBreakdown).reduce((s, v) => s + v, 0);
                     const pct = total > 0 ? ((amount / total) * 100).toFixed(1) : 0;
                     return (
                       <div key={cat} className="flex items-center gap-3 px-5 py-3">
