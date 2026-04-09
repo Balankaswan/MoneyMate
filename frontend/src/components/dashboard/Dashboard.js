@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { dashboardAPI } from '../../utils/api';
 import { formatCurrency, formatDate, getDaysUntil, getCategoryColor } from '../../utils/helpers';
 import { StatCard, CardSkeleton, EmptyState, PageHeader } from '../shared/UI';
-import { Wallet, TrendingUp, TrendingDown, CreditCard, AlertCircle, Plus } from 'lucide-react';
+import { Wallet, TrendingUp, TrendingDown, CreditCard, AlertCircle, Plus, Scissors } from 'lucide-react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import { Pie, Bar } from 'react-chartjs-2';
 import { useNavigate } from 'react-router-dom';
@@ -93,6 +93,40 @@ const Dashboard = () => {
         <StatCard title="Monthly Expense" value={data?.monthlyExpense || 0} icon={<TrendingDown size={20} />} color="rose" subtitle="This month" />
         <StatCard title="Monthly EMI" value={data?.totalEMI || 0} icon={<CreditCard size={20} />} color="amber" subtitle={`${data?.emiCount || 0} active loans`} />
       </div>
+
+      {/* Subscription Surgeon Teaser */}
+      {data?.subscriptionStats?.total > 0 && (
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl p-6 text-white shadow-xl shadow-indigo-200 dark:shadow-none animate-fade-in relative overflow-hidden">
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-white/20 rounded-lg backdrop-blur-md">
+                  <Scissors size={20} className="text-white" />
+                </div>
+                <h3 className="text-lg font-bold font-display">Subscription Surgeon</h3>
+              </div>
+              <p className="text-indigo-100 text-sm max-w-md">
+                You're spending <span className="font-bold text-white">{formatCurrency(data.subscriptionStats.total)}</span> monthly on subscriptions.
+                Our AI Agent has identified <span className="font-bold text-emerald-300">{formatCurrency(data.subscriptionStats.savings)}</span> in potential savings!
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                <div className="text-2xl font-bold num-display text-emerald-300">{formatCurrency(data.subscriptionStats.savings)}</div>
+                <div className="text-xs text-indigo-200 font-semibold uppercase tracking-wider">Estimated Waste</div>
+              </div>
+              <button
+                onClick={() => navigate('/subscriptions')}
+                className="px-6 py-3 bg-white text-indigo-700 font-bold rounded-xl hover:bg-indigo-50 transition-all active:scale-95 shadow-lg shadow-black/10"
+              >
+                Start Financial Trim
+              </button>
+            </div>
+          </div>
+          {/* Decorative icons */}
+          <div className="absolute top-[-20px] right-[-20px] text-white/5 text-9xl pointer-events-none font-display opacity-20 rotate-12">🧠</div>
+        </div>
+      )}
 
       {/* Charts row */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6">

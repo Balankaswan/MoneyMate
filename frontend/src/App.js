@@ -9,6 +9,7 @@ import TransactionsPage from './components/transactions/TransactionsPage';
 import EMIPage from './components/emi/EMIPage';
 import ReportsPage from './components/reports/ReportsPage';
 import InsightsPage from './components/insights/InsightsPage';
+import SubscriptionsPage from './components/subscriptions/SubscriptionsPage';
 import SettingsPage from './components/shared/SettingsPage';
 import './styles/index.css';
 
@@ -45,6 +46,7 @@ const AppRoutes = () => (
     <Route path="/emi" element={<ProtectedLayout><EMIPage /></ProtectedLayout>} />
     <Route path="/reports" element={<ProtectedLayout><ReportsPage /></ProtectedLayout>} />
     <Route path="/insights" element={<ProtectedLayout><InsightsPage /></ProtectedLayout>} />
+    <Route path="/subscriptions" element={<ProtectedLayout><SubscriptionsPage /></ProtectedLayout>} />
     <Route path="/settings" element={<ProtectedLayout><SettingsPage /></ProtectedLayout>} />
     <Route path="*" element={<Navigate to="/dashboard" replace />} />
   </Routes>

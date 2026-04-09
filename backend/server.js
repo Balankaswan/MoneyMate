@@ -19,6 +19,7 @@ app.use('/api/emi', require('./routes/emi'));
 app.use('/api/reports', require('./routes/reports'));
 app.use('/api/insights', require('./routes/insights'));
 app.use('/api/dashboard', require('./routes/dashboard'));
+app.use('/api/subscriptions', require('./routes/subscriptions'));
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'OK', message: 'Money Mate API running' }));

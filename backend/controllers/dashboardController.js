@@ -1,5 +1,6 @@
 const Transaction = require('../models/Transaction');
 const EMI = require('../models/EMI');
+const Subscription = require('../models/Subscription');
 
 exports.getDashboard = async (req, res) => {
   try {
@@ -59,6 +60,15 @@ exports.getDashboard = async (req, res) => {
       });
     }
 
+    // Subscription summary
+    const subs = await Subscription.find({ user: userId, status: 'active' });
+    const totalSubMonthly = subs.reduce((s, x) => s + (x.frequency === 'yearly' ? x.amount / 12 : x.amount), 0);
+    const potentialSavings = subs.filter(s => s.aiDecision === 'CANCEL').reduce((s, x) => s + (x.frequency === 'yearly' ? x.amount / 12 : x.amount), 0);
+    const wastefulSubs = subs
+      .filter(s => s.aiDecision === 'CANCEL' || s.aiDecision === 'CONSIDER')
+      .sort((a, b) => b.amount - a.amount)
+      .slice(0, 3);
+
     // Recent transactions
     const recentTransactions = await Transaction.find({ user: userId }).sort({ date: -1 }).limit(5);
 
@@ -77,7 +87,12 @@ exports.getDashboard = async (req, res) => {
         categoryBreakdown,
         monthlyTrend,
         recentTransactions,
-        emiCount: emis.length
+        emiCount: emis.length,
+        subscriptionStats: {
+          total: totalSubMonthly,
+          savings: potentialSavings,
+          wastefulSubs
+        }
       }
     });
   } catch (err) {

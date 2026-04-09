@@ -3,13 +3,14 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import {
   LayoutDashboard, ArrowLeftRight, CreditCard, BarChart3,
-  Lightbulb, Settings, LogOut, Moon, Sun, X, Menu
+  Lightbulb, Settings, LogOut, Moon, Sun, X, Menu, Scissors
 } from 'lucide-react';
 
 const navItems = [
   { to: '/dashboard', icon: <LayoutDashboard size={18} />, label: 'Dashboard' },
   { to: '/transactions', icon: <ArrowLeftRight size={18} />, label: 'Transactions' },
   { to: '/emi', icon: <CreditCard size={18} />, label: 'EMI Manager' },
+  { to: '/subscriptions', icon: <Scissors size={18} />, label: 'Subscription Surgeon' },
   { to: '/reports', icon: <BarChart3 size={18} />, label: 'Reports' },
   { to: '/insights', icon: <Lightbulb size={18} />, label: 'Insights' },
 ];

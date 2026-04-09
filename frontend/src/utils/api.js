@@ -56,5 +56,13 @@ export const reportsAPI = {
   yearly: (params) => API.get('/reports/yearly', { params }),
 };
 export const insightsAPI = { get: () => API.get('/insights') };
+export const subscriptionAPI = {
+  getAll: () => API.get('/subscriptions'),
+  detect: () => API.post('/subscriptions/detect'),
+  analyze: () => API.post('/subscriptions/analyze'),
+  trim: (ids) => API.post('/subscriptions/trim', { ids }),
+  update: (id, data) => API.put(`/subscriptions/${id}`, data),
+  seed: () => API.post('/subscriptions/seed'),
+};
 
 export default API;
