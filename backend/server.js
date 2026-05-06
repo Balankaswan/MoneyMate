@@ -7,7 +7,10 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' ? true : 'http://localhost:3000',
+  credentials: true
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -31,17 +34,28 @@ app.use((err, req, res, next) => {
 });
 
 // Connect to MongoDB
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => {
+const connectDB = async () => {
+  try {
+    if (!process.env.MONGODB_URI) {
+      throw new Error('MONGODB_URI is not defined in environment variables');
+    }
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('✅ MongoDB connected');
-    app.listen(process.env.PORT || 5000, () => {
-      console.log(`🚀 Money Mate server running on port ${process.env.PORT || 5000}`);
-    });
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error('❌ MongoDB connection error:', err);
-    process.exit(1);
+    if (process.env.NODE_ENV !== 'production') process.exit(1);
+  }
+};
+
+if (process.env.NODE_ENV !== 'production') {
+  connectDB().then(() => {
+    const PORT = process.env.PORT || 5001;
+    app.listen(PORT, () => {
+      console.log(`🚀 Money Mate server running on port ${PORT}`);
+    });
   });
+} else {
+  connectDB();
+}
 
 module.exports = app;
